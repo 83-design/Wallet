@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexUSDT Wallet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #0a0f1e; color: white; -webkit-tap-highlight-color: transparent; }
+        .card-grad { background: linear-gradient(135deg, #161c2d 0%, rgba(59, 130, 246, 0.15) 100%); }
+    </style>
+</head>
+<body class="p-4 font-sans">
+    <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg">
+                <i data-lucide="wallet" class="w-5 h-5"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight">NexUSDT</span>
+        </div>
+        <div class="flex gap-3">
+            <i data-lucide="settings" class="text-gray-400 w-6 h-6"></i>
+        </div>
+    </div>
+
+    <div id="mainCard" class="card-grad relative overflow-hidden rounded-3xl p-6 mb-6 border border-white/5 transition-all">
+        <p class="text-gray-400 text-sm mb-1">Доступный баланс</p>
+        <div class="flex items-baseline gap-2">
+            <h1 id="balanceDisplay" class="text-4xl font-black">0</h1>
+            <span class="text-blue-400 font-medium">USDT</span>
+        </div>
+        <p id="rubRate" class="text-gray-500 text-xs mt-2">≈ 0 РУБ</p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-8">
+        <div class="flex flex-col items-center justify-center bg-[#161c2d] py-4 rounded-2xl border border-white/5">
+            <div class="bg-green-500/20 p-2 rounded-full mb-2 text-green-500"><i data-lucide="arrow-down-left"></i></div>
+            <span class="text-sm font-medium">Получить</span>
+        </div>
+        <div class="flex flex-col items-center justify-center bg-[#161c2d] py-4 rounded-2xl border border-white/5">
+            <div class="bg-blue-500/20 p-2 rounded-full mb-2 text-blue-500"><i data-lucide="arrow-up-right"></i></div>
+            <span class="text-sm font-medium">Отправить</span>
+        </div>
+    </div>
+
+    <div class="bg-[#161c2d]/50 p-5 rounded-3xl border border-dashed border-white/10 mb-8">
+        <h3 class="text-sm font-semibold mb-4 flex items-center gap-2 text-blue-400">
+            <i data-lucide="palette" class="w-4 h-4"></i> Лаборатория стиля
+        </h3>
+        <div class="space-y-4">
+            <input type="number" id="fakeInput" placeholder="Примерить баланс (напр. 1000000)" 
+                class="bg-[#0a0f1e] border border-white/10 rounded-xl px-4 py-3 text-sm w-full focus:outline-none focus:border-blue-500">
+            <button onclick="applyFake()" class="w-full bg-blue-600 py-3 rounded-xl font-bold active:scale-95 transition">Применить</button>
+        </div>
+    </div>
+
+    <div class="bg-[#161c2d] p-4 rounded-2xl border border-white/5">
+        <p class="text-[10px] text-gray-500 uppercase font-bold mb-2">Адрес пополнения (TON)</p>
+        <div class="bg-[#0a0f1e] p-3 rounded-xl break-all text-[11px] font-mono text-blue-300 select-all">
+            UQCE0zJ-0FFfY0nPUUkVIPUVBhm3K9O0ugJaErpH1uNTa-T9
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        let rate = 94.5;
+        
+        function applyFake() {
+            const val = document.getElementById('fakeInput').value;
+            const bal = document.getElementById('balanceDisplay');
+            const rub = document.getElementById('rubRate');
+            if(val) {
+                bal.innerText = Number(val).toLocaleString();
+                rub.innerText = '≈ ' + (val * rate).toLocaleString() + ' РУБ';
+                document.getElementById('mainCard').style.boxShadow = "0 0 30px rgba(59, 130, 246, 0.3)";
+            }
+        }
+    </script>
+</body>
+</html>
